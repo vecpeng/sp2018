@@ -1,25 +1,9 @@
-class LinkedListDeque<T> {
-    private class Node<T> {
-        public T item;
-        public Node<T> next;
-        public Node<T> pre;
-        public Node(T item, Node<T> next, Node<T> pre) {
-            this.item = item;
-            this.next = next;
-            this.pre = pre;
-            if (this.next != null) {
-                this.next.pre = this;
-            }
-            if (this.pre != null) {
-                this.pre.next = this;
-            }
-        }
-    }
+public class LinkedListDeque<T> {
     private Node<T> first;
     private Node<T> last;
     private int size;
 
-    LinkedListDeque() {
+    public LinkedListDeque() {
         first = last = null;
         size = 0;
     }
@@ -57,7 +41,7 @@ class LinkedListDeque<T> {
             return;
         }
         Node temp = first;
-        while(temp != null) {
+        while (temp != null) {
             System.out.print(temp.item + " ");
             temp = temp.next;
         }
@@ -95,7 +79,7 @@ class LinkedListDeque<T> {
 
     public T get(int index) {
         Node<T> temp = first;
-        while(temp != null) {
+        while (temp != null) {
             if (index == 0) {
                 return temp.item;
             }
@@ -114,8 +98,26 @@ class LinkedListDeque<T> {
             return null;
         }
         if (index == 0) {
-            return (T) first.item;
+            return first.item;
         }
-        return getRecursiveHelper(index-1, first.next);
+        return getRecursiveHelper(index - 1, first.next);
+    }
+
+    private class Node<T> {
+        public T item;
+        public Node<T> next;
+        public Node<T> pre;
+
+        public Node(T item, Node<T> next, Node<T> pre) {
+            this.item = item;
+            this.next = next;
+            this.pre = pre;
+            if (this.next != null) {
+                this.next.pre = this;
+            }
+            if (this.pre != null) {
+                this.pre.next = this;
+            }
+        }
     }
 }
