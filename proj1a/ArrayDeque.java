@@ -18,7 +18,11 @@ public class ArrayDeque<T> {
         }
         if (first - last + 1 >= cap) {
             T[] newArr = (T[]) new Object[cap * 2];
-            System.arraycopy(arr, 0, newArr, cap / 2, cap);
+            for (int i = cap/2; i < cap + cap/2; i++) {
+                newArr[i] = arr[(first+i-cap/2+cap)%cap];
+            }
+            first = cap/2;
+            last = cap-1 + cap/2;
             cap = cap * 2;
             arr = newArr;
         }
@@ -33,9 +37,13 @@ public class ArrayDeque<T> {
             last = cap / 2;
             return;
         }
-        if (first - last + 1 >= cap) {
+        if ((last -first + 1) == cap  || first == last + 1) {
             T[] newArr = (T[]) new Object[cap * 2];
-            System.arraycopy(arr, 0, newArr, cap / 2, cap);
+            for (int i = cap/2; i < cap + cap/2; i++) {
+                newArr[i] = arr[(first+i-cap/2+cap)%cap];
+            }
+            first = cap/2;
+            last = cap-1 + cap/2;
             cap = cap * 2;
             arr = newArr;
         }

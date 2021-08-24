@@ -1,3 +1,5 @@
+import java.util.Deque;
+
 /** Performs some basic linked list tests. */
 public class LinkedListDequeTest {
 
@@ -39,7 +41,7 @@ public class LinkedListDequeTest {
         System.out.println("Running add/isEmpty/Size test.");
         System.out.println(
                 "Make sure to uncomment the lines below (and delete this print statement).");
-        LinkedListDeque<String> lld1 = new LinkedListDeque<>();
+        ArrayDeque<String> lld1 = new ArrayDeque<>();
 
         lld1.removeLast();
         lld1.removeFirst();
@@ -87,29 +89,14 @@ public class LinkedListDequeTest {
         System.out.println(
                 "Make sure to uncomment the lines below (and delete this print statement).");
 
-        LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
-        // should be empty
-        lld1.addFirst(0);
-        boolean passed = checkSize(1, lld1.size());
-        passed = checkEmpty(false, lld1.isEmpty());
-        lld1.removeFirst();
-        lld1.addFirst(4);
-        passed = checkSize(1, lld1.size());
-        lld1.removeFirst();
-        passed = checkEmpty(true, lld1.isEmpty());
-        lld1.addFirst(8);
-        lld1.removeLast();
-        passed = checkEmpty(true, lld1.isEmpty());
-
-        lld1.addFirst(10);
-        // should not be empty
-        passed = checkEmpty(false, lld1.isEmpty()) && passed;
-
-        lld1.removeFirst();
-        // should be empty
-        passed = checkEmpty(true, lld1.isEmpty()) && passed;
-
-        printTestStatus(passed);
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        for (int i = 0; i < 100; i ++) {
+            if (i%4 == 0 || i% 5 == 0) {
+                lld1.addLast(i);
+            } else {
+                lld1.addFirst(i);
+            }
+        }
     }
 
     public static void main(String[] args) {
