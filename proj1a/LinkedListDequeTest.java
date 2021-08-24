@@ -89,7 +89,17 @@ public class LinkedListDequeTest {
 
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
         // should be empty
-        boolean passed = checkEmpty(true, lld1.isEmpty());
+        lld1.addFirst(0);
+        boolean passed = checkSize(1, lld1.size());
+        passed = checkEmpty(false, lld1.isEmpty());
+        lld1.removeFirst();
+        lld1.addFirst(4);
+        passed = checkSize(1, lld1.size());
+        lld1.removeFirst();
+        passed = checkEmpty(true, lld1.isEmpty());
+        lld1.addFirst(8);
+        lld1.removeLast();
+        passed = checkEmpty(true, lld1.isEmpty());
 
         lld1.addFirst(10);
         // should not be empty

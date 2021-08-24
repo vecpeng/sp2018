@@ -69,11 +69,11 @@ public class LinkedListDeque<T> {
         size--;
         T res = last.getItem();
         last = last.getPre();
-        last.setNext(null);
         if (last == null) {
             first = null;
             return res;
         }
+        last.setNext(null);
         last.next = null;
         return res;
     }
