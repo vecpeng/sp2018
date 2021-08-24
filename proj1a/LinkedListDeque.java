@@ -29,7 +29,7 @@ public class LinkedListDeque<T> {
     }
 
     public boolean isEmpty() {
-        return first == null;
+        return size() == 0;
     }
 
     public int size() {
@@ -58,7 +58,7 @@ public class LinkedListDeque<T> {
             last = null;
             return res;
         }
-        first.getNext().setNext(null);
+        first.setPre(null);
         return res;
     }
 
@@ -69,6 +69,7 @@ public class LinkedListDeque<T> {
         size--;
         T res = last.getItem();
         last = last.getPre();
+        last.setNext(null);
         if (last == null) {
             first = null;
             return res;
@@ -90,17 +91,18 @@ public class LinkedListDeque<T> {
     }
 
     public T getRecursive(int index) {
-        return getRecursiveHelper(index, first);
+        Node<T> temp = first;
+        return getRecursiveHelper(index, temp);
     }
 
-    private T getRecursiveHelper(int index, Node<T> first) {
-        if (first == null) {
+    private T getRecursiveHelper(int index, Node<T> pfirst) {
+        if (pfirst == null) {
             return null;
         }
         if (index == 0) {
-            return first.getItem();
+            return pfirst.getItem();
         }
-        return getRecursiveHelper(index - 1, first.getNext());
+        return getRecursiveHelper(index - 1, pfirst.getNext());
     }
 
     private class Node<T> {
@@ -108,10 +110,10 @@ public class LinkedListDeque<T> {
         private Node<T> next;
         private Node<T> pre;
 
-        Node(T item, Node<T> next, Node<T> pre) {
-            this.item = item;
-            this.next = next;
-            this.pre = pre;
+        Node(T pitem, Node<T> pnext, Node<T> ppre) {
+            this.item = pitem;
+            this.next = pnext;
+            this.pre = ppre;
             if (this.next != null) {
                 this.next.pre = this;
             }
@@ -133,8 +135,12 @@ public class LinkedListDeque<T> {
             return pre;
         }
 
-        public void setNext(Node<T> next) {
-            this.next = next;
+        public void setNext(Node<T> pnext) {
+            this.next = pnext;
+        }
+
+        public void setPre(Node<T> ppre) {
+            this.pre = ppre;
         }
     }
 }

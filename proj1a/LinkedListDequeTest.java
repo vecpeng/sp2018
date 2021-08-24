@@ -39,8 +39,13 @@ public class LinkedListDequeTest {
         System.out.println("Running add/isEmpty/Size test.");
         System.out.println(
                 "Make sure to uncomment the lines below (and delete this print statement).");
-        ArrayDeque<String> lld1 = new ArrayDeque<>();
+        LinkedListDeque<String> lld1 = new LinkedListDeque<>();
 
+        lld1.removeLast();
+        lld1.removeFirst();
+        lld1.addLast("1");
+        lld1.addLast("2");
+        lld1.addLast("3");
         boolean passed = checkEmpty(true, lld1.isEmpty());
 
         lld1.addFirst("front");
@@ -58,6 +63,12 @@ public class LinkedListDequeTest {
         passed = checkSize(2, lld1.size()) && passed;
 
         lld1.removeLast();
+        lld1.removeLast();
+
+        lld1.addLast("fd");
+        lld1.removeFirst();
+
+        lld1.addFirst("fdf");
         lld1.removeLast();
         lld1.addLast("back");
         passed = checkSize(1, lld1.size()) && passed;
