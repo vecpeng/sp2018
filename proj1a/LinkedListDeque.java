@@ -1,5 +1,5 @@
 class LinkedListDeque<T> {
-    class Node<T> {
+    private class Node<T> {
         public T item;
         public Node<T> next;
         public Node<T> pre;
@@ -7,26 +7,34 @@ class LinkedListDeque<T> {
             this.item = item;
             this.next = next;
             this.pre = pre;
+            if (this.next != null) {
+                this.next.pre = this;
+            }
+            if (this.pre != null) {
+                this.pre.next = this;
+            }
         }
     }
-    public Node<T> first;
-    public Node<T> last;
+    private Node<T> first;
+    private Node<T> last;
     private int size;
 
-    public LinkedListDeque() {
+    LinkedListDeque() {
         first = last = null;
         size = 0;
     }
 
     public void addFirst(T item) {
+        size++;
         if (first == null) {
-            last = new Node(item, null, null);
+            first = last = new Node(item, null, null);
+            return;
         }
         first = new Node(item, first, null);
-        size++;
     }
 
     public void addLast(T item) {
+        size++;
         if (last != null) {
             last.next = new Node(item, null, last);
             last = last.next;
@@ -34,7 +42,6 @@ class LinkedListDeque<T> {
             last = new Node(item, null, null);
             first = last;
         }
-        size++;
     }
 
     public boolean isEmpty() {
@@ -46,10 +53,13 @@ class LinkedListDeque<T> {
     }
 
     public void printDeque() {
+        if (first == null) {
+            return;
+        }
         Node temp = first;
         while(temp != null) {
-            temp = temp.next;
             System.out.print(temp.item + " ");
+            temp = temp.next;
         }
     }
 
@@ -57,9 +67,11 @@ class LinkedListDeque<T> {
         if (first == null) {
             return null;
         }
+        size--;
         T res = first.item;
         first = first.next;
         if (first == null) {
+            last = null;
             return res;
         }
         first.next.pre = null;
@@ -67,8 +79,16 @@ class LinkedListDeque<T> {
     }
 
     public T removeLast() {
-        T res = first.item;
+        if (last == null) {
+            return null;
+        }
+        size--;
+        T res = last.item;
         last = last.pre;
+        if (last == null) {
+            first = null;
+            return res;
+        }
         last.next = null;
         return res;
     }
@@ -89,7 +109,7 @@ class LinkedListDeque<T> {
         return getRecursiveHelper(index, first);
     }
 
-    public T getRecursiveHelper(int index, Node<T> first) {
+    private T getRecursiveHelper(int index, Node<T> first) {
         if (first == null) {
             return null;
         }
