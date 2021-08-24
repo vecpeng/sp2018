@@ -4,7 +4,7 @@ public class ArrayDeque<T> {
     private int last = -1;
     private int cap = 0;
 
-    private ArrayDeque() {
+    public ArrayDeque() {
         cap = 10;
         arr = (T[]) new Object[cap];
     }

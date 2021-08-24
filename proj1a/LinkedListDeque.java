@@ -104,9 +104,9 @@ public class LinkedListDeque<T> {
     }
 
     private class Node<T> {
-        public T item;
-        public Node<T> next;
-        public Node<T> pre;
+        private T item;
+        private Node<T> next;
+        private Node<T> pre;
 
         public Node(T item, Node<T> next, Node<T> pre) {
             this.item = item;
