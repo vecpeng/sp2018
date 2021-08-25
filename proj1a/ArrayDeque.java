@@ -39,7 +39,7 @@ public class ArrayDeque<T> {
         if ((last - first + 1) == cap || first == last + 1) {
             int newCap = cap;
             if (cap < MAX_CAP) {
-                newCap = cap * 2;
+                newCap = cap + cap / 2;
             } else {
                 newCap = cap + cap / 5;
             }
