@@ -1,4 +1,5 @@
 public class ArrayDeque<T> {
+    private static final int MAX_CAP = 300;
     private T[] arr;
     private int first = -1;
     private int last = -1;
@@ -16,16 +17,7 @@ public class ArrayDeque<T> {
             last = 5;
             return;
         }
-        if ((last - first + 1) == cap || first == last + 1) {
-            T[] newArr = (T[]) new Object[cap * 2];
-            for (int i = cap / 2; i < cap + cap / 2; i++) {
-                newArr[i] = arr[(first + i - cap / 2 + cap) % cap];
-            }
-            first = cap / 2;
-            last = cap - 1 + cap / 2;
-            cap = cap * 2;
-            arr = newArr;
-        }
+        resize();
         first = (first - 1 + cap) % cap;
         arr[first] = item;
     }
@@ -37,18 +29,29 @@ public class ArrayDeque<T> {
             last = cap / 2;
             return;
         }
-        if ((last - first + 1) == cap || first == last + 1) {
-            T[] newArr = (T[]) new Object[cap * 2];
-            for (int i = cap / 2; i < cap + cap / 2; i++) {
-                newArr[i] = arr[(first + i - cap / 2 + cap) % cap];
-            }
-            first = cap / 2;
-            last = cap - 1 + cap / 2;
-            cap = cap * 2;
-            arr = newArr;
-        }
+
+        resize();
         last = (last + 1 + cap) % cap;
         arr[last] = item;
+    }
+
+    private void resize() {
+        if ((last - first + 1) == cap || first == last + 1) {
+            int newCap = cap;
+            if (cap < MAX_CAP) {
+                newCap = cap * 2;
+            } else {
+                newCap = cap + cap / 5;
+            }
+            T[] newArr = (T[]) new Object[newCap];
+            for (int i = (newCap - cap) / 2; i < (newCap + cap) / 2; i++) {
+                newArr[i] = arr[(first + i - (newCap - cap) / 2 + cap) % cap];
+            }
+            first = (newCap - cap) / 2;
+            last = cap - 1 + (newCap - cap) / 2;
+            cap = newCap;
+            arr = newArr;
+        }
     }
 
     public boolean isEmpty() {
@@ -62,7 +65,7 @@ public class ArrayDeque<T> {
         if (last >= first) {
             return last - first + 1;
         } else {
-            return cap-(first -last-1);
+            return cap - (first - last - 1);
         }
     }
 
