@@ -16,13 +16,13 @@ public class ArrayDeque<T> {
             last = 5;
             return;
         }
-        if (first - last + 1 >= cap) {
+        if ((last - first + 1) == cap || first == last + 1) {
             T[] newArr = (T[]) new Object[cap * 2];
-            for (int i = cap/2; i < cap + cap/2; i++) {
-                newArr[i] = arr[(first+i-cap/2+cap)%cap];
+            for (int i = cap / 2; i < cap + cap / 2; i++) {
+                newArr[i] = arr[(first + i - cap / 2 + cap) % cap];
             }
-            first = cap/2;
-            last = cap-1 + cap/2;
+            first = cap / 2;
+            last = cap - 1 + cap / 2;
             cap = cap * 2;
             arr = newArr;
         }
@@ -37,13 +37,13 @@ public class ArrayDeque<T> {
             last = cap / 2;
             return;
         }
-        if ((last -first + 1) == cap  || first == last + 1) {
+        if ((last - first + 1) == cap || first == last + 1) {
             T[] newArr = (T[]) new Object[cap * 2];
-            for (int i = cap/2; i < cap + cap/2; i++) {
-                newArr[i] = arr[(first+i-cap/2+cap)%cap];
+            for (int i = cap / 2; i < cap + cap / 2; i++) {
+                newArr[i] = arr[(first + i - cap / 2 + cap) % cap];
             }
-            first = cap/2;
-            last = cap-1 + cap/2;
+            first = cap / 2;
+            last = cap - 1 + cap / 2;
             cap = cap * 2;
             arr = newArr;
         }
@@ -52,7 +52,6 @@ public class ArrayDeque<T> {
     }
 
     public boolean isEmpty() {
-
         return first == -1;
     }
 
@@ -60,7 +59,11 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return 0;
         }
-        return last - first + 1;
+        if (last >= first) {
+            return last - first + 1;
+        } else {
+            return cap-(first -last-1);
+        }
     }
 
     public void printDeque() {
