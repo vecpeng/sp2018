@@ -1,10 +1,9 @@
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
-/**
- * Isn't this solution kinda... cheating? Yes.
- */
-public class LinkedListDeque<Item> extends LinkedList<Item> {
+public class LinkedListDeque<Item>
+        extends LinkedList<Item> implements Deque<Item> {
     public void printDeque() {
         System.out.println("dummy");
     }
