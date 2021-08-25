@@ -39,9 +39,9 @@ public class ArrayDeque<T> {
         if ((last - first + 1) == cap || first == last + 1) {
             int newCap = cap;
             if (cap < MAX_CAP) {
-                newCap = cap + cap / 2;
-            } else {
                 newCap = cap + cap / 5;
+            } else {
+                newCap = cap + cap / 10;
             }
             T[] newArr = (T[]) new Object[newCap];
             for (int i = (newCap - cap) / 2; i < (newCap + cap) / 2; i++) {
